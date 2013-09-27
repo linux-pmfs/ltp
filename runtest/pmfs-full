@@ -1,0 +1,1280 @@
+#DESCRIPTION:Filesystem stress tests
+gf01 growfiles -W gf01 -b -e 1 -u -i 0 -L 20 -w -C 1 -l -I r -T 10 -f glseek20 -S 2 -d $TMPDIR
+gf02 growfiles -W gf02 -b -e 1 -L 10 -i 100 -I p -S 2 -u -f gf03_ -d $TMPDIR
+gf03 growfiles -W gf03 -b -e 1 -g 1 -i 1 -S 150 -u -f gf05_ -d $TMPDIR
+gf04 growfiles -W gf04 -b -e 1 -g 4090 -i 500 -t 39000 -u -f gf06_ -d $TMPDIR
+gf05 growfiles -W gf05 -b -e 1 -g 5000 -i 500 -t 49900 -T10 -c9 -I p -u -f gf07_ -d $TMPDIR
+gf06 growfiles -W gf06 -b -e 1 -u -r 1-5000 -R 0--1 -i 0 -L 30 -C 1 -f g_rand10 -S 2 -d $TMPDIR
+gf07 growfiles -W gf07 -b -e 1 -u -r 1-5000 -R 0--2 -i 0 -L 30 -C 1 -I p -f g_rand13 -S 2 -d $TMPDIR
+gf08 growfiles -W gf08 -b -e 1 -u -r 1-5000 -R 0--2 -i 0 -L 30 -C 1 -f g_rand11 -S 2 -d $TMPDIR
+gf09 growfiles -W gf09 -b -e 1 -u -r 1-5000 -R 0--1 -i 0 -L 30 -C 1 -I p -f g_rand12 -S 2 -d $TMPDIR
+gf10 growfiles -W gf10 -b -e 1 -u -r 1-5000 -i 0 -L 30 -C 1 -I l -f g_lio14 -S 2 -d $TMPDIR
+gf11 growfiles -W gf11 -b -e 1 -u -r 1-5000 -i 0 -L 30 -C 1 -I L -f g_lio15 -S 2 -d $TMPDIR
+# VLV - PMFS fails
+#gf12 mkfifo $TMPDIR/gffifo17; growfiles -b -W gf12 -e 1 -u -i 0 -L 30 $TMPDIR/gffifo17
+#gf13 mkfifo $TMPDIR/gffifo18; growfiles -b -W gf13 -e 1 -u -i 0 -L 30 -I r -r 1-4096 $TMPDIR/gffifo18
+gf14 growfiles -W gf14 -b -e 1 -u -i 0 -L 20 -w -l -C 1 -T 10 -f glseek19 -S 2 -d $TMPDIR
+gf15 growfiles -W gf15 -b -e 1 -u -r 1-49600 -I r -u -i 0 -L 120 -f Lgfile1 -d $TMPDIR
+gf16 growfiles -W gf16 -b -e 1 -i 0 -L 120 -u -g 4090 -T 101 -t 408990 -l -C 10 -c 1000 -S 10 -f Lgf02_ -d $TMPDIR
+gf17 growfiles -W gf17 -b -e 1 -i 0 -L 120 -u -g 5000 -T 101 -t 499990 -l -C 10 -c 1000 -S 10 -f Lgf03_ -d $TMPDIR
+#gf18 growfiles -W gf18 -b -e 1 -i 0 -L 120 -w -u -r 10-5000 -I r -l -S 2 -f Lgf04_ -d $TMPDIR
+gf19 growfiles -W gf19 -b -e 1 -g 5000 -i 500 -t 49900 -T10 -c9 -I p -o O_RDWR,O_CREAT,O_TRUNC -u -f gf08i_ -d $TMPDIR
+gf20 growfiles -W gf20 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 1-256000:512 -R 512-256000 -T 4 -f gfbigio-$$ -d $TMPDIR
+gf21 growfiles -W gf21 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 -T 10 -t 20480 -f gf-bld-$$ -d $TMPDIR
+gf22 growfiles -W gf22 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 -T 10 -t 20480 -f gf-bldf-$$ -d $TMPDIR
+gf23 growfiles -W gf23 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 512-64000:1024 -R 1-384000 -T 4 -f gf-inf-$$ -d $TMPDIR
+gf24 growfiles -W gf24 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 -f gf-jbld-$$ -d $TMPDIR
+gf25 growfiles -W gf25 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 1024000-2048000:2048 -R 4095-2048000 -T 1 -f gf-large-gs-$$ -d $TMPDIR
+gf26 growfiles -W gf26 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 128-32768:128 -R 512-64000 -T 4 -f gfsmallio-$$ -d $TMPDIR
+gf27 growfiles -W gf27 -b -D 0 -w -g 8b -C 1 -b -i 1000 -u -f gfsparse-1-$$ -d $TMPDIR
+gf28 growfiles -W gf28 -b -D 0 -w -g 16b -C 1 -b -i 1000 -u -f gfsparse-2-$$ -d $TMPDIR
+gf29 growfiles -W gf29 -b -D 0 -r 1-4096 -R 0-33554432 -i 0 -L 60 -C 1 -u -f gfsparse-3-$$ -d $TMPDIR
+gf30 growfiles -W gf30 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -o O_RDWR,O_CREAT,O_SYNC -g 20480 -T 10 -t 20480 -f gf-sync-$$ -d $TMPDIR
+rwtest01 export LTPROOT; rwtest -N rwtest01 -c -q -i 60s  -f sync 10%25000:$TMPDIR/rw-sync-$$
+rwtest02 export LTPROOT; rwtest -N rwtest02 -c -q -i 60s  -f buffered 10%25000:$TMPDIR/rw-buffered-$$
+rwtest03 export LTPROOT; rwtest -N rwtest03 -c -q -i 60s -n 2  -f buffered -s mmread,mmwrite -m random -Dv 10%25000:$TMPDIR/mm-buff-$$
+rwtest04 export LTPROOT; rwtest -N rwtest04 -c -q -i 60s -n 2  -f sync -s mmread,mmwrite -m random -Dv 10%25000:$TMPDIR/mm-sync-$$
+rwtest05 export LTPROOT; rwtest -N rwtest05 -c -q -i 50 -T 64b 500b:$TMPDIR/rwtest01%f
+
+#must be run as root
+#iogen01 iogen -i 120s -s read,write 500b:doio.f1.$$ 1000b:doio.f2.$$ | doio -akv -n 2
+iogen01 export LTPROOT; rwtest -N iogen01 -i 120s -s read,write -Da -Dv -n 2 500b:$TMPDIR/doio.f1.$$ 1000b:$TMPDIR/doio.f2.$$
+
+fs_inod01 fs_inod $TMPDIR 10 10 10
+linker01 linktest.sh 1000 1000
+openfile01 openfile -f10 -t10
+inode01 inode01
+inode02 inode02
+stream01 stream01
+# VLV - PMFS fails
+#stream02 stream02
+stream03 stream03
+stream04 stream04
+stream05 stream05
+#ftest01 ftest01
+ftest02 ftest02
+#ftest03 ftest03
+#ftest04 ftest04
+#ftest05 ftest05
+ftest06 ftest06
+#ftest07 ftest07
+#ftest08 ftest08
+
+lftest01	lftest 100
+writetest01	writetest
+
+#Also run the fs_di (Data Integrity tests)
+fs_di fs_di -d $TMPDIR
+
+# Read every file in /proc. Not likely to crash, but does enough
+# to disturb the kernel. A good kernel latency killer too.
+# Was not sure why it should reside in runtest/crashme and won´t get tested ever
+proc01 proc01 -m 128
+
+#Run the File System Race Condition Check tests as well
+#fs_racer fs_racer.sh -t 5
+
+#Run the Quota Remount Test introduced in linux-2.6.26
+quota_remount_test01 quota_remount_test01.sh
+#
+# These tests are setting file permissions/group/uid and are trying to
+# open/write/execute the file.
+#
+# fs_perms file_mode file_uid file_gid test_uid test_gid mode (r|w|x) expected_result
+
+# We are executing shell script, thuss
+# both exec and read right is needed.
+fs_perms01 fs_perms 005 99 99 12 100 x 0
+fs_perms02 fs_perms 050 99 99 200 99 x 0
+fs_perms03 fs_perms 500 99 99 99 500 x 0
+fs_perms04 fs_perms 002 99 99 12 100 w 0
+fs_perms05 fs_perms 020 99 99 200 99 w 0
+fs_perms06 fs_perms 200 99 99 99 500 w 0
+fs_perms07 fs_perms 004 99 99 12 100 r 0
+fs_perms08 fs_perms 040 99 99 200 99 r 0
+fs_perms09 fs_perms 400 99 99 99 500 r 0
+fs_perms10 fs_perms 000 99 99 99 99  r 1
+fs_perms11 fs_perms 000 99 99 99 99  w 1
+fs_perms12 fs_perms 000 99 99 99 99  x 1
+fs_perms13 fs_perms 010 99 99 99 500 x 1
+fs_perms14 fs_perms 100 99 99 200 99 x 1
+fs_perms15 fs_perms 020 99 99 99 500 w 1
+fs_perms16 fs_perms 200 99 99 200 99 w 1
+fs_perms17 fs_perms 040 99 99 99 500 r 1
+fs_perms18 fs_perms 400 99 99 200 99 r 1
+#DESCRIPTION:fsx filesystem stress tests
+fsx-linux export TCbin=$LTPROOT/testcases/bin;fsxtest02 10000
+#fsx-ext2 fsxtest $SCRATCHDEV ext2 10000
+#fsx-ext3 fsxtest $SCRATCHDEV ext3 10000
+#fsx-jfs fsxtest $SCRATCHDEV jfs 10000
+#fsx-xfs  fsxtest $SCRATCHDEV xfs 10000
+#fsx-reiserfs fsxtest $SCRATCHDEV reiserfs 10000
+
+hugemmap01 hugemmap01
+# test is broken in design
+#hugemmap02 hugemmap02
+hugemmap03 hugemmap03 -I2
+hugemmap04 hugemmap04
+hugemmap05 hugemmap05
+hugemmap05_1 hugemmap05 -m
+hugemmap05_2 hugemmap05 -s
+hugemmap05_3 hugemmap05 -s -m
+
+hugeshmat01 hugeshmat01 -i 5
+hugeshmat02 hugeshmat02 -i 5
+hugeshmat03 hugeshmat03 -i 5
+
+hugeshmctl01 hugeshmctl01 -i 5
+hugeshmctl02 hugeshmctl02 -i 5
+hugeshmctl03 hugeshmctl03 -i 5
+
+hugeshmdt01 hugeshmdt01 -i 5
+
+hugeshmget01 hugeshmget01 -i 10
+hugeshmget02 hugeshmget02 -i 10
+hugeshmget03 hugeshmget03 -i 10
+hugeshmget05 hugeshmget05 -i 10
+
+#           fname:  this filename is Required (no default)
+#
+#
+FSX032 fsx-linux -l 500000 -r 4096 -t 4096 -w 4096 -N 10000 $TMPDIR/fsxfile
+FSX033 fsx-linux -l 500000 -r 4096 -t 2048 -w 2048 -N 10000 $TMPDIR/fsxfile
+FSX034 fsx-linux -l 500000 -r 4096 -N 10000 $TMPDIR/fsxfile
+FSX035 fsx-linux -N 10000 $TMPDIR/fsxfile
+FSX036 fsx-linux -N 10000 $TMPDIR/fsxfile
+FSX037 fsx-linux -N 10000 $TMPDIR/fsxfile
+FSX038 fsx-linux -N 10000 $TMPDIR/fsxfile
+FSX039 fsx-linux -N 10000 $TMPDIR/fsxfile
+FSX040 fsx-linux -N 10000 -o 1024 $TMPDIR/fsxfile
+FSX041 fsx-linux -N 10000 -o 2048 $TMPDIR/fsxfile
+FSX042 fsx-linux -N 10000 -o 4096 $TMPDIR/fsxfile
+FSX043 fsx-linux -N 10000 -o 8192 $TMPDIR/fsxfile
+FSX044 fsx-linux -N 10000 -o 16384 $TMPDIR/fsxfile
+FSX045 fsx-linux -N 10000 -o 32768 $TMPDIR/fsxfile
+FSX046 fsx-linux -N 10000 -o 128000 $TMPDIR/fsxfile
+FSX047 fsx-linux -N 10000 -o 1024 $TMPDIR/fsxfile
+FSX048 fsx-linux -N 10000 -o 2048 $TMPDIR/fsxfile
+FSX049 fsx-linux -N 10000 -o 4096 $TMPDIR/fsxfile
+FSX050 fsx-linux -N 10000 -o 8192 $TMPDIR/fsxfile
+FSX051 fsx-linux -N 10000 -o 16384 $TMPDIR/fsxfile
+FSX052 fsx-linux -N 10000 -o 32768 $TMPDIR/fsxfile
+FSX053 fsx-linux -N 10000 -o 128000 $TMPDIR/fsxfile
+FSX054 fsx-linux -N 10000  -o 1024 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX055 fsx-linux -N 10000  -o 2048 -l 500000 -r 4096 -t 2048 -w 2048 $TMPDIR/fsxfile
+FSX056 fsx-linux -N 10000  -o 4096 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX057 fsx-linux -N 10000  -o 8192 -l 500000 -r 4096 -t 2048 -w 2048 $TMPDIR/fsxfile
+FSX058 fsx-linux -N 10000  -o 16384 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX059 fsx-linux -N 10000  -o 32768 -l 500000 -r 4096 -t 2048 -w 2048 $TMPDIR/fsxfile
+FSX060 fsx-linux -N 10000  -o 128000 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX061 fsx-linux -N 10000 -o 32768 $TMPDIR/fsxfile
+FSX062 fsx-linux -N 10000 -o 128000 $TMPDIR/fsxfile
+FSX063 fsx-linux -N 10000  -o 1024  -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX064 fsx-linux -N 10000  -o 2048 -l 500000 -r 4096 -t 2048 -w 2048 $TMPDIR/fsxfile
+FSX065 fsx-linux -N 10000  -o 4096 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX066 fsx-linux -N 10000  -o 8192  -l 500000 -r 4096 -t 2048 -w 2048 $TMPDIR/fsxfile
+FSX067 fsx-linux -N 10000  -o 16384 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX068 fsx-linux -N 10000  -o 32768 -l 500000 -r 4096 -t 2048 -w 2048 $TMPDIR/fsxfile
+FSX069 fsx-linux -N 10000  -o 128000 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX070 fsx-linux -N 10000  -o 128000 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile
+FSX071 fsx-linux -N 10000  -o 16384 -l 500000 -r 4096 -t 4096 -w 4096   $TMPDIR/fsxfile1
+FSX072 fsx-linux -N 10000  -o 32768 -l 500000 -r 4096 -t 2048 -w 2048   $TMPDIR/fsxfile2
+FSX073 fsx-linux -N 10000  -o 128000 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile3
+FSX074 fsx-linux -N 10000  -o 16384 -l 500000 -r 4096 -t 4096 -w 4096   $TMPDIR/fsxfile4
+FSX075 fsx-linux -N 10000  -o 32768 -l 500000 -r 4096 -t 2048 -w 2048   $TMPDIR/fsxfile5
+FSX076 fsx-linux -N 10000  -o 128000 -l 500000 -r 4096 -t 4096 -w 4096 $TMPDIR/fsxfile6
+FSX077 fsx-linux -N 10000   $TMPDIR/fsxfile7
+FSX078 fsx-linux -N 100000  $TMPDIR/fsxfile8
+FSX079 fsx-linux -N 100000  $TMPDIR/fsxfile9
+
+#DESCRIPTION:ltp A-sync IO Stress IO tests
+#
+# aio-stress [-s size] [-r size] [-a size] [-d num] [-b num]
+#                 [-i num] [-t num] [-c num] [-C size] [-nxhlvOS ]
+#                 file1 [/test/aiodio/file2 ...]
+#       -a size in KB at which to align buffers
+#       -b max number of iocbs to give io_submit at once
+#       -c number of io contexts per file
+#       -C offset between contexts, default 2MB
+#       -s size in MB of the test file(s), default 1024MB
+#       -r record size in KB used for each io, default 64KB
+#       -d number of pending aio requests for each file, default 64
+#       -i number of ios per file sent before switching
+#          to the next file, default 8
+#       -O Use O_DIRECT (not available in 2.4 kernels),
+#       -S Use O_SYNC for writes
+#       -o add an operation to the list: write=0, read=1,
+#          random write=2, random read=3.
+#          repeat -o to specify multiple ops: -o 0 -o 1 etc.
+#       -m shm use ipc shared memory for io buffers instead of malloc
+#       -m shmfs mmap a file in /dev/shm for io buffers
+#       -n no fsyncs between write stage and read stage
+#       -l print io_submit latencies after each stage
+#       -t number of threads to run
+#       -v verification of bytes written
+#       -x turn off thread stonewalling
+#       -h this message
+#
+ADS1000 aio-stress -I500  -o2 -S -r4   $TMPDIR/file1
+ADS1001 aio-stress -I500  -o2 -S -r8   $TMPDIR/file1
+ADS1002 aio-stress -I500  -o2 -S -r16  $TMPDIR/file1
+ADS1003 aio-stress -I500  -o2 -S -r32  -t2  $TMPDIR/junkfile $TMPDIR/file2
+ADS1004 aio-stress -I500  -o2 -S -r64   $TMPDIR/junkfile $TMPDIR/file2
+ADS1005 aio-stress -I500  -o3 -S -r4    $TMPDIR/junkfile $TMPDIR/file2
+ADS1006 aio-stress -I500  -o3 -S -r8   -t2  $TMPDIR/junkfile $TMPDIR/file2
+ADS1007 aio-stress -I500  -o3 -S -r16  -t2  $TMPDIR/junkfile $TMPDIR/file2
+ADS1008 aio-stress -I500  -o3 -S -r32  -t4  $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file3  $TMPDIR/file4
+ADS1009 aio-stress -I500  -o3 -S -r64  -t4  $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file3  $TMPDIR/file4
+ADS1010 aio-stress -I500  -o3 -S -r128 -t4  $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file3  $TMPDIR/file4
+ADS1011 aio-stress -I500  -o3 -S -r256 -t8  $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file3  $TMPDIR/file4 $TMPDIR/file5  $TMPDIR/file6 $TMPDIR/file7  $TMPDIR/file8
+ADS1012 aio-stress -I500  -o3 -S -r512 -t8  $TMPDIR/junkfile $TMPDIR/file2 $TMPDIR/file3  $TMPDIR/file4 $TMPDIR/file5  $TMPDIR/file6 $TMPDIR/file7  $TMPDIR/file8
+ADS1013 aio-stress -I500  -o2 -O -r4    -t8  $TMPDIR/junkfile $TMPDIR/file2 $TMPDIR/file3  $TMPDIR/file4 $TMPDIR/file5  $TMPDIR/file6 $TMPDIR/file7  $TMPDIR/file8
+ADS1014 aio-stress -I500  -o2 -O -r8         $TMPDIR/file1 $TMPDIR/file2
+ADS1015 aio-stress -I500  -o2 -O -r16        $TMPDIR/file1 $TMPDIR/file2
+ADS1016 aio-stress -I500  -o2 -O -r32   -t2  $TMPDIR/junkfile $TMPDIR/file2
+ADS1017 aio-stress -I500  -o2 -O -r64   -t2  $TMPDIR/junkfile $TMPDIR/file2
+ADS1018 aio-stress -I500  -o3 -O -r4    -t2  $TMPDIR/junkfile $TMPDIR/file2
+ADS1019 aio-stress -I500  -o3 -O -r8    -t2  $TMPDIR/junkfile $TMPDIR/file2
+ADS1020 aio-stress -I500  -o3 -O -r16   -t2  $TMPDIR/junkfile $TMPDIR/file2
+ADS1021 aio-stress -I500  -o3 -O -r32   -t4  $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file7  $TMPDIR/file8
+ADS1022 aio-stress -I500  -o3 -O -r64   -t4  $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file7  $TMPDIR/file8
+ADS1023 aio-stress -I500  -o3 -O -r128  -t4  $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file7  $TMPDIR/file8
+ADS1024 aio-stress -I500  -o3 -O -r256  -t8  $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file4  $TMPDIR/file3  $TMPDIR/file5  $TMPDIR/file6
+ADS1025 aio-stress -I500  -o3 -O -r512  -t8  $TMPDIR/junkfile $TMPDIR/file2 $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file3  $TMPDIR/file4  $TMPDIR/file5  $TMPDIR/file6
+ADS1026 aio-stress -I500  -o0 -S -r4    -t8  $TMPDIR/junkfile $TMPDIR/file2       $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file3  $TMPDIR/file4  $TMPDIR/file5  $TMPDIR/file6
+ADS1027 aio-stress -I500  -o0 -S -r8           $TMPDIR/file2
+ADS1028 aio-stress -I500  -o0 -S -r16          $TMPDIR/file2
+ADS1029 aio-stress -I500  -o0 -S -r32   -t2    $TMPDIR/junkfile $TMPDIR/file2
+ADS1030 aio-stress -I500  -o0 -S -r64   -t2    $TMPDIR/junkfile $TMPDIR/file2
+ADS1031 aio-stress -I500  -o1 -S -r4    -t2    $TMPDIR/junkfile $TMPDIR/file2
+ADS1032 aio-stress -I500  -o1 -S -r8    -t2    $TMPDIR/junkfile $TMPDIR/file2
+ADS1033 aio-stress -I500  -o1 -S -r16   -t2    $TMPDIR/junkfile $TMPDIR/file2
+ADS1034 aio-stress -I500  -o1 -S -r32   -t4    $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file7  $TMPDIR/file8
+ADS1035 aio-stress -I500  -o1 -S -r64   -t4    $TMPDIR/junkfile $TMPDIR/file2     $TMPDIR/file7  $TMPDIR/file8
+ADS1036 aio-stress -I500  -o1 -S -r128  -t4    $TMPDIR/junkfile $TMPDIR/file2     $TMPDIR/file7  $TMPDIR/file8
+ADS1037 aio-stress -I500  -o1 -S -r256  -t8  $TMPDIR/junkfile $TMPDIR/file2     $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file4  $TMPDIR/file3  $TMPDIR/file5  $TMPDIR/file6
+ADS1038 aio-stress -I500  -o1 -S -r512  -t8  -x $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file3  $TMPDIR/file4  $TMPDIR/file5  $TMPDIR/file6
+ADS1039 aio-stress -I500  -o1 -O -r4    -t8  -x  $TMPDIR/junkfile $TMPDIR/file2        $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file3  $TMPDIR/file4  $TMPDIR/file5  $TMPDIR/file6
+ADS1040 aio-stress -I500  -o1 -O -r8    -t2  -x $TMPDIR/junkfile $TMPDIR/file2
+ADS1041 aio-stress -I500  -o1 -O -r16   -t2  -x  $TMPDIR/junkfile $TMPDIR/file2
+ADS1042 aio-stress -I500  -o1 -O -r32   -t2   $TMPDIR/junkfile $TMPDIR/file2
+ADS1043 aio-stress -I500  -o1 -O -r64   -t2   $TMPDIR/junkfile $TMPDIR/file2
+ADS1044 aio-stress -I500  -o1 -O -r4    -t4   $TMPDIR/junkfile $TMPDIR/file2        $TMPDIR/file7  $TMPDIR/file8
+ADS1045 aio-stress -I500  -o1 -O -r8    -t4   $TMPDIR/junkfile $TMPDIR/file2     $TMPDIR/file7  $TMPDIR/file8
+ADS1046 aio-stress -I500  -o1 -O -r16   -t4   $TMPDIR/junkfile $TMPDIR/file2     $TMPDIR/file7  $TMPDIR/file8
+ADS1047 aio-stress -I500  -o1 -O -r32   -t8   $TMPDIR/junkfile $TMPDIR/file2     $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file4  $TMPDIR/file3  $TMPDIR/file5  $TMPDIR/file6
+ADS1048 aio-stress -I500  -o1 -O -r64   -t8   $TMPDIR/junkfile $TMPDIR/file2  $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file3  $TMPDIR/file4  $TMPDIR/file5  $TMPDIR/file6
+ADS1049 aio-stress -I500  -o1 -O -r128  -t8   $TMPDIR/junkfile $TMPDIR/file2        $TMPDIR/file7  $TMPDIR/file8 $TMPDIR/file3  $TMPDIR/file4  $TMPDIR/file5  $TMPDIR/file6
+ADS1050 aio-stress -I500  -o1 -O -r256  -t2   $TMPDIR/junkfile $TMPDIR/file2
+
+#ADS2001 aio-stress -I500  -o2 -S -r32  -t2  $TMPDIR/junkfile /test/aiodio2/file2
+#ADS2002 aio-stress -I500  -o3 -S -r8   -t2  $TMPDIR/junkfile /test/aiodio2/file2
+#ADS2003 aio-stress -I500  -o3 -S -r16  -t2  $TMPDIR/junkfile /test/aiodio2/file2
+#ADS2004 aio-stress -I500  -o3 -S -r32  -t4  $TMPDIR/junkfile /test/aiodio2/file2 $TMPDIR/file3 /test/aiodio2/file4
+#ADS2005 aio-stress -I500  -o3 -S -r64  -t4  $TMPDIR/junkfile /test/aiodio2/file2 $TMPDIR/file3 /test/aiodio2/file4
+#ADS2006 aio-stress -I500  -o2 -O -r32  -t2  $TMPDIR/junkfile /test/aiodio2/file2
+#ADS2007 aio-stress -I500  -o3 -O -r8   -t2  $TMPDIR/junkfile /test/aiodio2/file2
+#ADS2008 aio-stress -I500  -o3 -O -r16  -t2  $TMPDIR/junkfile /test/aiodio2/file2
+#ADS2009 aio-stress -I500  -o3 -O -r32  -t4  $TMPDIR/junkfile /test/aiodio2/file2 $TMPDIR/file3 /test/aiodio2/file4
+#ADS2010 aio-stress -I500  -o3 -O -r64  -t4  $TMPDIR/junkfile /test/aiodio2/file2 $TMPDIR/file3 /test/aiodio2/file4
+
+#DESCRIPTION:Interprocess communication stress
+# These tests use tests/pipeio to put pipes (named or unnamed) through a workout
+#
+pipeio_1 pipeio -T pipeio_1 -c 5 -s 4090 -i 100 -b -f x80
+# spawns 5 children to write 100 chunks of 4090 bytes to a named pipe
+# using blocking I/O
+#pipeio_2 pipeio -T pipeio_2 -c 5 -s 4090 -i 100 -f x80
+# spawns 5 children to write 100 chunks of 4090 bytes to a named pipe
+# using non-blocking I/O
+# This test hits EAGAIN, which pipeio doesn't handle at the moment
+pipeio_3 pipeio -T pipeio_3 -c 5 -s 4090 -i 100 -u -b -f x80
+# spawns 5 children to write 100 chunks of 4090 bytes to an unnamed pipe
+# using blocking I/O
+pipeio_4 pipeio -T pipeio_4 -c 5 -s 4090 -i 100 -u -f x80
+# spawns 5 children to write 100 chunks of 4090 bytes to an unnamed pipe
+# using non-blocking I/O
+pipeio_5 pipeio -T pipeio_5 -c 5 -s 5000 -i 10 -b -f x80
+# spawns 5 children to write 10 chunks of 5000 bytes to a named pipe
+# using blocking I/O
+pipeio_6 pipeio -T pipeio_6 -c 5 -s 5000 -i 10 -b -u -f x80
+# spawns 5 children to write 10 chunks of 5000 bytes to an unnamed pipe
+# using blocking I/O
+#pipeio_7 pipeio -T pipeio_7 -c 5 -s 5000 -i 10 -f x80
+# spawns 5 children to write 10 chunks of 5000 bytes to a named pipe
+# using non-blocking I/O
+# This test hits EAGAIN, which pipeio doesn't handle at the moment
+pipeio_8 pipeio -T pipeio_8 -c 5 -s 5000 -i 10 -u -f x80
+# spawns 5 children to write 10 chunks of 5000 bytes to an unnamed pipe
+# using non-blocking I/O
+
+sem01 sem01
+sem02 sem02
+
+#DESCRIPTION:Kernel system calls
+abort01 ulimit -c 1024;abort01
+
+accept01 accept01
+
+access01 access01
+access02 access02
+access03 access03
+access04 access04
+access05 access05
+
+acct01 acct01
+acct02 acct02
+
+adjtimex01 adjtimex01
+adjtimex02 adjtimex02
+
+alarm01 alarm01
+alarm02 alarm02
+alarm03 alarm03
+alarm05 alarm05
+alarm06 alarm06
+alarm07 alarm07
+
+asyncio02 asyncio02
+
+bind01 bind01
+bind02 bind02
+
+brk01 brk01
+
+capget01 capget01
+capget02 capget02
+
+capset01 capset01
+capset02 capset02
+
+chdir01 chdir01
+chdir01A symlink01 -T chdir01
+chdir02 chdir02
+chdir03 chdir03
+chdir04 chdir04
+
+chmod01 chmod01
+chmod01A symlink01 -T chmod01
+chmod02 chmod02
+chmod03 chmod03
+chmod04 chmod04
+chmod05 cp -p $LTPROOT/testcases/bin/change_owner $TMPDIR;chmod05
+chmod06 cp -p $LTPROOT/testcases/bin/change_owner $TMPDIR;chmod06
+chmod07 chmod07
+
+chown01 chown01
+chown02 chown02
+chown03 export change_owner=$LTPROOT/testcases/bin/change_owner;chown03
+chown04 cp -p $LTPROOT/testcases/bin/change_owner $TMPDIR;chown04
+chown05 chown05
+
+chroot01 chroot01
+chroot02 chroot02
+chroot03 chroot03
+chroot04 chroot04
+
+
+clone01 clone01
+clone02 clone02
+clone03 clone03
+clone04 clone04
+clone05 clone05
+clone06 clone06
+clone07 clone07
+
+close01 close01
+close02 close02
+close08 close08
+
+confstr01 confstr01
+
+connect01 connect01
+
+creat01 creat01
+creat03 creat03
+creat04 creat04
+creat05 creat05
+creat06 creat06
+# VLV - PMFS fails
+#creat07 creat07
+creat08 creat08
+creat09 creat09
+
+dup01 dup01
+dup02 dup02
+dup03 dup03
+dup04 dup04
+# VLV - PMFS fails
+#dup05 dup05
+dup06 dup06
+dup07 dup07
+
+dup201 dup201
+dup202 dup202
+dup203 dup203
+dup204 dup204
+dup205 dup205
+
+execl01 execl01
+execle01 execle01
+execlp01 execlp01
+
+execv01 execv01
+execve01 execve01
+execve02 execve02 -F $LTPROOT/testcases/bin/test3
+execve03 execve03
+execve04 execve04 -F $LTPROOT/testcases/bin/test3
+execve05 execve05 20 $LTPROOT/testcases/bin/execve05 $LTPROOT/testcases/bin/execve05 4
+execvp01 execvp01
+
+exit01 exit01
+exit02 exit02
+
+#fallocate test cases
+fallocate01 fallocate01
+fallocate02 fallocate02
+fallocate03 fallocate03
+
+fchdir01 fchdir01
+fchdir02 fchdir02
+fchdir03 fchdir03
+
+# VLV - PMFS fails
+#fchmod01 fchmod01
+fchmod02 fchmod02
+fchmod03 fchmod03
+fchmod04 fchmod04
+fchmod05 cp -p $LTPROOT/testcases/bin/change_owner $TMPDIR;fchmod05
+fchmod06 cp -p $LTPROOT/testcases/bin/change_owner $TMPDIR;fchmod06
+fchmod07 fchmod07
+
+fchown01 fchown01
+fchown02 fchown02
+fchown03 cp -p $LTPROOT/testcases/bin/change_owner $TMPDIR;fchown03
+fchown04 export change_owner=$LTPROOT/testcases/bin/change_owner;fchown04
+fchown05 fchown05
+
+fcntl01 fcntl01
+fcntl02 fcntl02
+fcntl03 fcntl03
+fcntl04 fcntl04
+fcntl05 fcntl05
+fcntl06 fcntl06
+fcntl07 fcntl07
+# VLV - PMFS fails
+#fcntl07B fcntl07B
+fcntl08 fcntl08
+fcntl09 fcntl09
+fcntl10 fcntl10
+fcntl11 fcntl11
+fcntl12 fcntl12
+fcntl13 fcntl13
+fcntl14 fcntl14
+fcntl15 fcntl15
+#fcntl16 fcntl16 #Contains errors.
+fcntl17 fcntl17
+fcntl18 fcntl18
+fcntl19 fcntl19
+fcntl20 fcntl20
+fcntl21 fcntl21
+fcntl22 fcntl22
+fcntl23 fcntl23
+fcntl24 fcntl24
+fcntl25 fcntl25
+fcntl26 fcntl26
+# The tests for these system calls  fcntl27 and fcntl28 are temporarily being disabled
+# fcntl27 fcntl27
+# fcntl28 fcntl28
+
+fdatasync01 fdatasync01
+fdatasync02 fdatasync02
+
+flock01 flock01
+flock02 flock02
+# VLV - PMFS fails
+#flock03 flock03
+flock04 flock04
+flock05 flock05
+flock06 flock06
+
+fmtmsg01 fmtmsg01
+
+fork01 fork01
+fork02 fork02
+fork03 fork03
+fork04 fork04
+fork05 fork05
+fork06 fork06
+fork07 fork07
+fork08 fork08
+fork09 fork09
+fork10 fork10
+fork11 fork11
+
+fpathconf01 fpathconf01
+
+fstat01 fstat01
+fstat02 fstat02
+fstat03 fstat03
+fstat04 fstat04
+fstat05 fstat05
+
+fstatfs01 fstatfs01
+fstatfs02 fstatfs02
+
+fsync01 fsync01
+fsync02 fsync02
+fsync03 fsync03
+
+ftruncate01 ftruncate01
+ftruncate02 ftruncate02
+ftruncate03 ftruncate03
+ftruncate04 ftruncate04
+
+getcontext01 getcontext01
+
+getcwd01 getcwd01
+getcwd02 getcwd02
+getcwd03 getcwd03
+
+getdents01 getdents01
+getdents02 getdents02
+getdents03 getdents03
+getdents04 getdents04
+
+getdomainname01 getdomainname01
+
+getdtablesize01 getdtablesize01
+
+getegid01 getegid01
+
+geteuid01 geteuid01
+
+getgid01 getgid01
+getgid03 getgid03
+
+getgroups01 getgroups01
+getgroups03 getgroups03
+
+gethostid01 gethostid01
+
+gethostname01 gethostname01
+
+getitimer01 getitimer01
+getitimer02 getitimer02
+getitimer03 getitimer03
+
+getpeername01 getpeername01
+
+getpgid01 getpgid01
+getpgid02 getpgid02
+
+getpgrp01 getpgrp01
+
+getpid01 getpid01
+getpid02 getpid02
+
+getppid01 getppid01
+getppid02 getppid02
+
+getpriority01 getpriority01
+getpriority02 getpriority02
+
+getresgid01 getresgid01
+getresgid02 getresgid02
+getresgid03 getresgid03
+
+getresuid01 getresuid01
+getresuid02 getresuid02
+getresuid03 getresuid03
+
+getrlimit01 getrlimit01
+getrlimit02 getrlimit02
+
+getrusage01 getrusage01
+getrusage02 getrusage02
+
+getsid01 getsid01
+getsid02 getsid02
+
+getsockname01 getsockname01
+
+getsockopt01 getsockopt01
+
+gettimeofday01 gettimeofday01
+gettimeofday02 gettimeofday02
+
+getuid01 getuid01
+getuid02 getuid02
+getuid03 getuid03
+
+#Needs tty device.
+#ioctl01 ioctl01 -D /dev/tty0
+#ioctl02 ioctl02 -D /dev/tty0
+
+# Introducing ioctl tests for all /dev/tty* devices
+ioctl test_ioctl
+
+ioperm01 ioperm01
+ioperm02 ioperm02
+
+iopl01 iopl01
+iopl02 iopl02
+
+kill01 kill01
+kill02 kill02
+kill03 kill03
+kill04 kill04
+kill05 kill05
+kill06 kill06
+kill07 kill07
+kill08 kill08
+kill09 kill09
+kill10 kill10
+kill11 ulimit -c 1024;kill11
+kill12 kill12
+
+lchown01 lchown01
+lchown02 lchown02
+
+link01 symlink01 -T link01
+link02 link02
+link03 link03
+link04 link04
+link05 link05
+link06 link06
+link07 link07
+
+listen01 listen01
+
+llseek01 llseek01
+llseek02 llseek02
+
+lseek01 lseek01
+lseek02 lseek02
+lseek03 lseek03
+# VLV - PMFS fails
+#lseek04 lseek04
+lseek05 lseek05
+lseek06 lseek06
+lseek07 lseek07
+lseek08 lseek08
+# VLV - PMFS fails
+#lseek09 lseek09
+# VLV - PMFS fails
+#lseek10 lseek10
+
+lstat01A symlink01 -T lstat01
+lstat01 lstat01
+lstat02 lstat02
+lstat03 lstat03
+
+mallopt01 mallopt01
+
+memset01 memset01
+memcmp01 memcmp01
+memcpy01 memcpy01
+
+mlockall01 mlockall01
+mlockall02 mlockall02
+mlockall03 mlockall03
+
+mkdir01 mkdir01
+mkdir02 mkdir02
+mkdir03 mkdir03
+mkdir04 mkdir04
+mkdir05 mkdir05
+mkdir05A symlink01 -T mkdir05
+mkdir08 mkdir08
+mkdir09 mkdir09
+
+# VLV - PMFS fails
+#mknod01 mknod01
+#mknod02 mknod02
+#mknod03 mknod03
+#mknod04 mknod04
+#mknod05 mknod05
+#mknod06 mknod06
+#mknod07 mknod07
+#mknod08 mknod08
+#mknod09 mknod09
+
+mlock01 mlock01
+mlock02 mlock02
+
+qmm01 mmap001 -m 1
+mmap01 mmap01
+mmap02 mmap02
+mmap03 mmap03
+mmap04 mmap04
+mmap05 mmap05
+mmap06 mmap06
+mmap07 mmap07
+mmap08 mmap08
+mmap09 mmap09
+
+modify_ldt01 modify_ldt01
+modify_ldt02 modify_ldt02
+
+#
+# These tests require an unmounted block device
+# to run correctly. Please see individual test
+# code for more information.
+#
+#mount01 mount01 -D /dev/...
+#mount02 mount02 -D /dev/...
+#mount03 mount03 -D /dev/...
+#mount04 mount04 -D /dev/...
+
+mprotect01 mprotect01
+mprotect02 mprotect02
+mprotect03 mprotect03
+
+mremap01 mremap01
+mremap02 mremap02
+mremap03 mremap03
+mremap04 mremap04
+
+msgctl01 msgctl01
+msgctl02 msgctl02
+msgctl03 msgctl03
+msgctl04 msgctl04
+msgctl05 msgctl05
+msgctl06 msgctl06
+msgctl07 msgctl07
+msgctl08 msgctl08
+msgctl09 msgctl09
+
+msgget01 msgget01
+msgget02 msgget02
+msgget03 msgget03
+msgget04 msgget04
+
+msgrcv01 msgrcv01
+msgrcv02 msgrcv02
+msgrcv03 msgrcv03
+msgrcv04 msgrcv04
+msgrcv05 msgrcv05
+msgrcv06 msgrcv06
+
+msgsnd01 msgsnd01
+msgsnd02 msgsnd02
+msgsnd03 msgsnd03
+msgsnd04 msgsnd04
+msgsnd05 msgsnd05
+msgsnd06 msgsnd06
+
+msync01 msync01
+msync02 msync02
+msync03 msync03
+msync04 msync04
+msync05 msync05
+
+munlock01 munlock01
+munlock02 munlock02
+
+munlockall01 munlockall01
+munlockall02 munlockall02
+
+munmap01 munmap01
+munmap02 munmap02
+munmap03 munmap03
+
+nanosleep01 nanosleep01
+nanosleep02 nanosleep02
+nanosleep03 nanosleep03
+nanosleep04 nanosleep04
+
+nftw01 nftw01
+nftw6401 nftw6401
+
+nice01 nice01
+nice02 nice02
+nice03 nice03
+nice04 nice04
+nice05 nice05
+
+open01 open01
+open01A symlink01 -T open01
+open02 open02
+open03 open03
+open04 open04
+open05 open05
+# VLV - PMFS fails
+#open06 open06
+open07 open07
+open08 open08
+open09 open09
+open10 open10
+# VLV - PMFS fails
+#open11 open11
+
+mincore01 mincore01
+#mincore02 mincore02 currently hangs and does not exit correctly
+madvise01 madvise01
+#madvise02 madvise02
+
+pathconf01 pathconf01
+
+pause01 pause01
+pause02 pause02
+pause03 pause03
+
+#  The personality() system call is poorly documented
+#  and difficult to figure out how to use by looking
+#  at the different architecture specific kernel files.
+#personality01 personality01
+#personality02 personality02
+
+pipe01 pipe01
+pipe02 pipe02
+pipe03 pipe03
+pipe04 pipe04
+pipe05 pipe05
+pipe06 pipe06
+pipe07 pipe07
+pipe08 pipe08
+pipe09 pipe09
+pipe10 pipe10
+pipe11 pipe11
+
+poll01 poll01
+
+prctl01 prctl01
+prctl02 prctl02
+
+pread01 pread01
+pread02 pread02
+pread03 pread03
+
+profil01 profil01
+
+pselect01 pselect01
+
+ptrace01 ptrace01
+ptrace02 ptrace02
+ptrace03 ptrace03
+ptrace05 ptrace05
+
+pwrite01 pwrite01
+pwrite02 pwrite02
+pwrite03 pwrite03
+pwrite04 pwrite04
+
+pwrite01_64 pwrite01_64
+pwrite02_64 pwrite02_64
+pwrite03_64 pwrite03_64
+pwrite04_64 pwrite04_64
+
+read01 read01
+read02 read02
+# VLV - PMFS fails
+#read03 read03
+read04 read04
+
+readdir01 readdir01
+readdir02 readdir02
+
+readlink01A symlink01 -T readlink01
+readlink01 readlink01
+readlink02 readlink02
+readlink03 readlink03
+readlink04 cp -f $LTPROOT/testcases/bin/creat_slink $TMPDIR; readlink04
+
+#readv01 readv01
+readv02 readv02
+readv03 readv03
+
+reboot01 reboot01
+reboot02 reboot02
+
+recv01 recv01
+
+recvfrom01 recvfrom01
+
+# VLV - PMFS fails
+#recvmsg01 recvmsg01
+
+rename01 rename01
+rename01A symlink01 -T rename01
+rename02 rename02
+#rename03 rename03
+rename04 rename04
+rename05 rename05
+rename06 rename06
+rename07 rename07
+rename08 rename08
+rename09 rename09
+rename10 rename10
+rename12 rename12
+rename13 rename13
+rename14 rename14
+
+rmdir01 rmdir01
+rmdir02 rmdir02
+rmdir03 rmdir03
+rmdir03A symlink01 -T rmdir03
+rmdir04 rmdir04
+rmdir05 rmdir05
+
+sbrk01 sbrk01
+
+sched_get_priority_max01 sched_get_priority_max01
+sched_get_priority_max02 sched_get_priority_max02
+
+sched_get_priority_min01 sched_get_priority_min01
+sched_get_priority_min02 sched_get_priority_min02
+
+sched_getparam01 sched_getparam01
+sched_getparam02 sched_getparam02
+sched_getparam03 sched_getparam03
+
+sched_rr_get_interval01 sched_rr_get_interval01
+sched_rr_get_interval02 sched_rr_get_interval02
+sched_rr_get_interval03 sched_rr_get_interval03
+
+sched_setparam01 sched_setparam01
+sched_setparam02 sched_setparam02
+sched_setparam03 sched_setparam03
+sched_setparam04 sched_setparam04
+sched_setparam05 sched_setparam05
+
+sched_getscheduler01 sched_getscheduler01
+sched_getscheduler02 sched_getscheduler02
+
+sched_setscheduler01 sched_setscheduler01
+sched_setscheduler02 sched_setscheduler02
+
+sched_yield01 sched_yield01
+
+select01 select01
+select02 select02
+# VLV - PMFS fails
+#select03 select03
+
+semctl01 semctl01
+semctl02 semctl02
+semctl03 semctl03
+semctl04 semctl04
+semctl05 semctl05
+semctl06 semctl06
+semctl07 semctl07
+
+semget01 semget01
+semget02 semget02
+semget03 semget03
+semget05 semget05
+semget06 semget06
+
+semop01 semop01
+semop02 semop02
+semop03 semop03
+semop04 semop04
+semop05 semop05
+
+send01 send01
+
+sendfile02 sendfile02
+sendfile03 sendfile03
+
+# VLV - PMFS fails
+#sendmsg01 sendmsg01
+
+sendto01 sendto01
+
+setdomainname01	setdomainname01
+setdomainname02	setdomainname02
+setdomainname03	setdomainname03
+
+setfsgid01 setfsgid01
+setfsgid02 setfsgid02
+setfsgid03 setfsgid03
+
+setfsuid01 setfsuid01
+setfsuid02 setfsuid02
+setfsuid03 setfsuid03
+setfsuid04 setfsuid04
+
+setgid01 setgid01
+setgid02 setgid02
+setgid03 setgid03
+
+setegid01 setegid01
+
+setgroups01 setgroups01
+setgroups02 setgroups02
+setgroups03 setgroups03
+setgroups04 setgroups04
+
+sethostname01 sethostname01
+sethostname02 sethostname02
+sethostname03 sethostname03
+
+setitimer01 setitimer01
+setitimer02 setitimer02
+setitimer03 setitimer03
+
+setpgid01 setpgid01
+setpgid02 setpgid02
+setpgid03 setpgid03
+
+setpgrp01 setpgrp01
+setpgrp02 setpgrp02
+
+setpriority01 setpriority01
+setpriority02 setpriority02
+setpriority03 setpriority03
+setpriority04 setpriority04
+setpriority05 setpriority05
+
+setregid01 setregid01
+setregid02 setregid02
+setregid03 setregid03
+setregid04 setregid04
+
+setresgid01 setresgid01
+setresgid02 setresgid02
+setresgid03 setresgid03
+
+setresuid01 setresuid01
+setresuid02 setresuid02
+setresuid03 setresuid03
+setresuid04 setresuid04
+
+setreuid01 setreuid01
+setreuid02 setreuid02
+setreuid03 setreuid03
+setreuid04 setreuid04
+setreuid05 setreuid05
+setreuid06 setreuid06
+setreuid07 setreuid07
+
+setrlimit01 setrlimit01
+setrlimit02 setrlimit02
+setrlimit03 setrlimit03
+
+setsid01 setsid01
+
+setsockopt01 setsockopt01
+
+settimeofday01 settimeofday01
+settimeofday02 settimeofday02
+
+setuid01 setuid01
+setuid02 setuid02
+setuid03 setuid03
+setuid04 setuid04
+
+shmat01 shmat01
+shmat02 shmat02
+shmat03 shmat03
+
+shmctl01 shmctl01
+shmctl02 shmctl02
+shmctl03 shmctl03
+shmctl04 shmctl04
+
+shmdt01 shmdt01
+shmdt02 shmdt02
+
+shmget01 shmget01
+shmget02 shmget02
+shmget03 shmget03
+shmget04 shmget04
+shmget05 shmget05
+
+sigaction01 sigaction01
+sigaction02 sigaction02
+
+sigaltstack01 sigaltstack01
+sigaltstack02 sigaltstack02
+
+
+sighold02 sighold02
+
+signal01 signal01
+signal02 signal02
+signal03 signal03
+signal04 signal04
+signal05 signal05
+
+sigpending02 sigpending02
+
+sigprocmask01 sigprocmask01
+
+sigrelse01 sigrelse01
+
+sigsuspend01 sigsuspend01
+
+
+socket01 socket01
+
+socketcall01 socketcall01
+socketcall02 socketcall02
+socketcall03 socketcall03
+socketcall04 socketcall04
+
+socketpair01 socketpair01
+
+# VLV - PMFS fails
+#sockioctl01 sockioctl01
+
+stat01 stat01
+stat02 stat02
+stat03 stat03
+stat04 symlink01 -T stat04
+stat05 stat05
+stat06 stat06
+
+statfs01 statfs01
+statfs02 statfs02
+statfs03 statfs03
+
+statvfs01 statvfs01
+
+# This syscall is obsoleted by settimeofday.
+#stime01 stime01
+#stime02 stime02
+
+string01 string01
+
+#swapoff01 swapoff01
+#swapoff02 swapoff02
+
+#swapon01 swapon01
+#swapon02 swapon02
+#swapon03 swapon03
+
+symlink01 symlink01
+symlink02 symlink02
+symlink03 symlink03
+symlink04 symlink04
+symlink05 symlink05
+
+sync01 sync01
+sync02 sync02
+
+syscall01 syscall01
+
+sysconf01 sysconf01
+
+sysctl01 sysctl01
+sysctl03 sysctl03
+sysctl04 sysctl04
+sysctl05 sysctl05
+
+sysfs01 sysfs01
+sysfs02 sysfs02
+sysfs03 sysfs03
+sysfs04 sysfs04
+sysfs05 sysfs05
+sysfs06 sysfs06
+
+sysinfo01 sysinfo01
+sysinfo02 sysinfo02
+
+syslog01 syslog01
+syslog02 syslog02
+syslog03 syslog03
+syslog04 syslog04
+syslog05 syslog05
+syslog06 syslog06
+syslog07 syslog07
+syslog08 syslog08
+syslog09 syslog09
+syslog10 syslog10
+syslog11 syslog11
+syslog12 syslog12
+
+# This syscall is obsoleted by gettimeofday.
+# time01 time01
+# time02 time02
+
+times01 times01
+times03 times03
+
+truncate01 truncate01
+truncate02 truncate02
+truncate03 truncate03
+truncate04 truncate04
+
+# This syscall is obsolete.  The latest glibc does not even
+# include the ulimit.h file anymore.  The test will fail
+# because the error handling has been simplified.
+#
+# ulimit01 ulimit01
+
+umask01 umask01
+umask02 umask02
+umask03 umask03
+
+uname01 uname01
+uname02 uname02
+uname03 uname03
+
+unlink01 symlink01 -T unlink01
+unlink05 unlink05
+# VLV - PMFS fails
+#unlink06 unlink06
+unlink07 unlink07
+unlink08 unlink08
+
+#
+# These tests require an unmounted block device
+# to run correctly. Please see individual test
+# code for more information.
+#
+#umount01 umount01 -D /dev/...
+#umount02 umount02 -D /dev/...
+#umount03 umount03 -D /dev/...
+
+ustat01 ustat01
+ustat02 ustat02
+
+utime01 utime01
+utime01A symlink01 -T utime01
+utime02 utime02
+utime03 utime03
+utime04 utime04
+utime05 utime05
+utime06 utime06
+
+vfork01 vfork01
+vfork02 vfork02
+
+vhangup01 vhangup01
+vhangup02 vhangup02
+
+wait02 wait02
+
+wait401 wait401
+wait402 wait402
+
+waitpid01 waitpid01
+waitpid02 waitpid02
+waitpid03 waitpid03
+waitpid04 waitpid04
+waitpid05 waitpid05
+waitpid06 waitpid06
+waitpid07 waitpid07
+waitpid08 waitpid08
+waitpid09 waitpid09
+waitpid10 waitpid10 5
+waitpid11 waitpid11
+waitpid12 waitpid12
+waitpid13 waitpid13
+
+write01 write01
+write02 write02
+write03 write03
+# VLV - PMFS fails
+#write04 write04
+write05 write05
+
+#writev01 writev01
+writev02 writev02
+#writev03 writev03
+#writev04 writev04
+writev05 writev05
+#writev06 writev06

@@ -86,4 +86,4 @@ free
 
 echo
 echo '/proc/cpuinfo'
-cat /proc/cpuinfo
+# cat /proc/cpuinfo

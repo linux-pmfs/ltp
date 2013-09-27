@@ -64,6 +64,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <syslog.h>
 
 #include "splitstr.h"
 #include "zoolib.h"
@@ -179,6 +180,7 @@ int main(int argc, char **argv)
 	pid_t cpid;
 	struct sigaction sa;
 
+	openlog("LTP-PAN", LOG_CONS | LOG_NDELAY, LOG_USER);
 	while ((c =
 		getopt(argc, argv, "AO:Sa:C:d:ef:hl:n:o:pqr:s:t:x:y")) != -1) {
 		switch (c) {
@@ -639,6 +641,7 @@ int main(int argc, char **argv)
 	if (logfile && (logfile != stdout))
 		fclose(logfile);
 
+	closelog();
 	exit(exit_stat);
 }
 
@@ -864,6 +867,8 @@ run_child(struct coll_entry *colle, struct tag_pgrp *active, int quiet_mode,
 	static long cmdno = 0;
 	int errpipe[2];		/* way to communicate to parent that the tag  */
 	char errbuf[1024];	/* didn't actually start */
+
+	syslog(LOG_NOTICE, "Executing test %s\n", colle->name);
 
 	/* Try to open the file that will be stdout for the test */
 	if (test_out_dir) {
